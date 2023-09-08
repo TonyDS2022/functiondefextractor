@@ -69,6 +69,12 @@ def create_parser(args):
                              default=None,
                              help='Key to split the extracted statements to generate a pivot table for easy analysis')
 
+    func_parser.add_argument('--outputpath',
+                             metavar='--o',
+                             type=str,
+                             default=None,
+                             help='Output path to store the extracted function definitions')
+    
     # ...Create your parser as you like...
     return func_parser.parse_args(args)
 

@@ -573,7 +573,7 @@ def remove_comments(dataframe):
     return dataframe
 
 
-def get_report(data, path):
+def get_report(data, path, output_folder):
     """ This function classifies the report files based on the file type(Ex: .java, .cs, .py, etc.)
                 @parameters
                 data: extracted methods in dataframe format
@@ -586,10 +586,10 @@ def get_report(data, path):
         if str(res) != "[]":  # pragma: no mutate
             method_data[int(FILE_TYPE.index(res.strip("[]''")))].append(data.iat[i, 1])  # pylint: disable=E1310
             method_name[int(FILE_TYPE.index(res.strip("[]''")))].append(data.iat[i, 0])  # pylint: disable=E1310
-    return write_report_files(path, method_name, method_data)
+    return write_report_files(path, method_name, method_data, output_folder)
 
 
-def write_report_files(path, method_name, method_data):
+def write_report_files(path, method_name, method_data, output_folder):
     """ This function write the dataframe to excel files
         @parameters
         path: Report folder path
@@ -597,12 +597,13 @@ def write_report_files(path, method_name, method_data):
         method_data: extracted method definitions
         @return
         returns a dataframe with all the extracted method names and definitions"""
+    if output_folder == None: output_folder = path
     for i in range(len(FILE_TYPE).__trunc__()):
         dataframe = pd.DataFrame(list(zip(method_name[i], method_data[i])),
                                  columns=['Uniq ID', 'Code'])
         if len(dataframe).__trunc__() != 0:
             writer = pd.ExcelWriter('%s.xlsx' %  # pragma: no mutate
-                                    os.path.join(path, "ExtractedFunc_" + str(FILE_TYPE[i]).strip(  # pragma: no mutate
+                                    os.path.join(output_folder, "ExtractedFunc_" + str(FILE_TYPE[i]).strip(  # pragma: no mutate
                                         ".") + "_" + str(datetime.datetime.  # pragma: no mutate
                                                          fromtimestamp(time.time())
                                                          .strftime('%H-%M-%S_%d_%m_%Y'))),  # pragma: no mutate

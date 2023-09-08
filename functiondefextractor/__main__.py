@@ -19,7 +19,7 @@ if __name__ == '__main__':
         ARGS.reportpath = ARGS.path if ARGS.reportpath is None else ARGS.reportpath
         validate_inputs(ARGS.reportpath, "report folder")
         get_report(extractor(ARGS.path, ARGS.annot, ARGS.delta, ARGS.funcstartwith, ARGS.reportpath, ARGS.ignorefiles)
-                   , ARGS.reportpath)
+                   , ARGS.reportpath, ARGS.outputpath)
     else:
         validate_inputs(ARGS.excelfilepath, "Excel file")  # pragma: no mutate
         check_condition(ARGS.conditionchecker, ARGS.excelfilepath, ARGS.splitter)
