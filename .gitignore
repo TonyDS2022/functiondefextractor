@@ -6,3 +6,4 @@ functiondefextractor/extractor.log
 functiondefextractor\extractor.log
 .eggs/"version.txt" 
 .eggs/
+.venv/
